@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reframe — Resume Analyzer</title>
+    <meta name="description"
+        content="Get clear, practical feedback on your resume. Built for students, career switchers, and ambitious professionals.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <!-- NAV -->
+    <nav class="nav">
+        <div class="nav-inner">
+            <div class="nav-left">
+                <a href="/" class="brand" aria-label="Reframe home">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                        <rect x="3" y="3" width="18" height="18" rx="3" stroke="#176B58" stroke-width="2.2" />
+                        <path d="M8 8h8M8 12h5M8 16h6" stroke="#176B58" stroke-width="2" stroke-linecap="round" />
+                    </svg>
+                    Reframe
+                </a>
+
+            </div>
+            <span class="nav-aside">Private by default</span>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <main class="hero-section">
+        <div class="hero-inner">
+
+            <!-- LEFT -->
+            <div class="hero-left">
+                <p class="eyebrow">RESUME FEEDBACK, WITHOUT THE GUESSWORK</p>
+                <h1 class="headline">Turn your resume into your next&nbsp;<span class="accent-word">interview.</span>
+                </h1>
+                <p class="subline">Get clear, practical feedback on what is working, what is missing, and how to tailor
+                    your resume for the role you want.</p>
+
+                <ul class="benefits">
+                    <li>
+                        <span class="benefit-icon">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+                            </svg>
+                        </span>
+                        <span>Instant clarity</span>
+                    </li>
+                    <li>
+                        <span class="benefit-icon">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10" />
+                                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
+                                <line x1="12" y1="17" x2="12.01" y2="17" />
+                            </svg>
+                        </span>
+                        <span>Role-specific feedback</span>
+                    </li>
+                    <li>
+                        <span class="benefit-icon">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="9 11 12 14 22 4" />
+                                <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11" />
+                            </svg>
+                        </span>
+                        <span>Actionable next steps</span>
+                    </li>
+                </ul>
+
+                <p class="trust-line">Built for students, career switchers, and ambitious professionals.</p>
+            </div>
+
+            <!-- RIGHT — FORM CARD -->
+            <div class="hero-right">
+                <div class="form-card">
+                    <div class="card-header">
+                        <p class="card-title">Start your resume review</p>
+                        <p class="card-sub">It takes less than 2 minutes.</p>
+                    </div>
+
+                    <form id="analyze-form" enctype="multipart/form-data" novalidate>
+
+                        <div class="field-group">
+                            <label for="resume" class="field-label">Your resume</label>
+                            <div class="dropzone" id="drop-zone">
+                                <input type="file" id="resume" name="resume" accept="application/pdf" required
+                                    aria-describedby="file-hint">
+                                <div class="dropzone-content">
+                                    <span class="dz-icon" aria-hidden="true">
+                                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                            stroke-linejoin="round">
+                                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                                            <polyline points="14 2 14 8 20 8" />
+                                            <line x1="12" y1="18" x2="12" y2="12" />
+                                            <polyline points="9 15 12 12 15 15" />
+                                        </svg>
+                                    </span>
+                                    <span id="dz-primary" class="dz-primary">Drop your PDF here</span>
+                                    <span id="file-hint" class="dz-secondary">or <button type="button"
+                                            class="browse-link" id="browse-btn">browse from your
+                                            computer</button></span>
+                                    <span class="dz-meta">PDF &middot; Max 10MB</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="field-group">
+                            <label for="text" class="field-label">What role are you targeting? <span
+                                    class="optional">(Optional)</span></label>
+                            <textarea id="text" name="text" rows="3"
+                                placeholder="Paste the job description or describe the kind of role you want&#8230;"></textarea>
+                        </div>
+
+                        <button type="submit" id="submit-btn" class="primary-btn">
+                            <span class="btn-text">Analyze my resume</span>
+                            <svg class="btn-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+                                aria-hidden="true">
+                                <line x1="5" y1="12" x2="19" y2="12" />
+                                <polyline points="12 5 19 12 12 19" />
+                            </svg>
+                        </button>
+
+                        <p class="privacy-note">Your resume is used only to generate your review. Nothing is stored.</p>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- RESULTS -->
+    <section class="results-section hidden" id="result-container">
+        <div class="results-inner">
+            <div class="results-header">
+                <h2>Your Resume Review</h2>
+            </div>
+            <div id="result-content" class="markdown-body"></div>
+        </div>
+    </section>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+
+</html>

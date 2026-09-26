@@ -1,0 +1,9 @@
+flask
+python-dotenv
+pypdf
+requests
+
+langchain-community
+langchain-core
+langchain-mistralai
+langchain-openrouter
